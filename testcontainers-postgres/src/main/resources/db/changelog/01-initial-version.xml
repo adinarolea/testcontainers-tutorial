@@ -1,0 +1,36 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="AdinaRolea" id="1.0">
+
+        <createTable tableName="carts">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_cart_id"/>
+            </column>
+            <column name="code" type="varchar(100)"/>
+        </createTable>
+
+        <createTable tableName="products">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="code" type="varchar(100)"/>
+            <column name="name" type="varchar(100)"/>
+            <column name="price" type="decimal(1000,2)"/>
+        </createTable>
+
+        <createTable tableName="carts_products_mm">
+            <column name="cart_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_carts_products_cart_id" references="carts(id)"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_carts_products_product_id" references="products(id)"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>
