@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,9 +24,10 @@ public class CartEntity {
     private String code;
 
     @ManyToMany
-    @JoinTable(name = "cars_products_mm",
+    @JoinTable(name = "carts_products_mm",
             joinColumns = @JoinColumn(name = "cart_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id"))
-    private List<ProductEntity> products;
+    @Builder.Default
+    private List<ProductEntity> products = new ArrayList<>();
 
 }
