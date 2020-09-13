@@ -13,7 +13,12 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @SpringBootTest
 @ContextConfiguration(initializers = {AbstractPostgresContainerTest.Initializer.class})
 public class AbstractPostgresContainerTest {
-
+    /**
+     * H2 does not support all the features supported by postgres and for this reason the tests accuracy is affected.
+     *
+     * P.S H2 is more performant because it is in memory db
+     * Use testcontainers only when you want to assure 100% database compatibility
+     */
     static class Initializer
             implements ApplicationContextInitializer<ConfigurableApplicationContext> {
         public void initialize(ConfigurableApplicationContext configurableApplicationContext) {

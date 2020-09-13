@@ -12,11 +12,21 @@ public abstract class AbstractTest {
     protected static AmazonS3 amazonS3;
 
     static {
+
+        /**
+         * with generic container we would have something like this:
+         * GenericContainer container = new GenericContainer(DockerImageName.parse("localstack:latest"))
+         */
+
         LOCALSTACK_CONTAINER = new LocalStackContainer()
                 .withServices(LocalStackContainer.Service.S3)
                 .withExposedPorts(LOCALSTACK_PORT);
 
         LOCALSTACK_CONTAINER.start();
+
+        /**
+         * localstack is started on a random port and we must always call getMappedPort after the container is started
+         */
         amazonS3 = new S3LocalstackConfig().amazonS3("us-east-1",
                 "http://localhost:" + LOCALSTACK_CONTAINER.getMappedPort(LOCALSTACK_PORT));
     }
