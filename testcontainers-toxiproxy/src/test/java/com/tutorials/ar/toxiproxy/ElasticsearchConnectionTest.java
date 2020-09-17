@@ -34,8 +34,9 @@ public class ElasticsearchConnectionTest {
                     .withNetworkAliases(TOXIPROXY_NETWORK_ALIAS);
             toxiproxy.start();
 
-            proxy = toxiproxy.getProxy(elasticsearchContainer, 9300);
-
+            proxy = toxiproxy.getProxy(elasticsearchContainer, elasticsearchContainer.getMappedPort(9300));
+            System.setProperty("elasticsearch.host", elasticsearchContainer.getHttpHostAddress());
+            System.setProperty("elasticsearch.port", String.valueOf(elasticsearchContainer.getMappedPort(9300)));
         }
     }
 
@@ -44,8 +45,8 @@ public class ElasticsearchConnectionTest {
 
     @Test
     public void whenConnectionIsAvailable_thenConnect() {
-        proxy.setConnectionCut(true);
+        // proxy.setConnectionCut(true);
         movieService.getAllMovies();
-        proxy.setConnectionCut(false);
+        // proxy.setConnectionCut(false);
     }
 }
