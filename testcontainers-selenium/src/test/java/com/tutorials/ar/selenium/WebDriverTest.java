@@ -59,5 +59,9 @@ public class WebDriverTest {
         chromeDriver.get(url);
         WebElement element = chromeDriver.findElement(By.id("main-element"));
         assertThat(element.getText()).isEqualTo("Hello there!");
+        Thread.sleep(1000);
+        chromeDriver.findElement(By.id("link-element")).click();
+        Thread.sleep(1000);
+        assertThat(chromeDriver.getTitle()).isEqualTo("Testcontainers");
     }
 }
