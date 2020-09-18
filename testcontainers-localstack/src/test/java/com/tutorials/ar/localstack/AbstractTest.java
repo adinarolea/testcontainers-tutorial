@@ -10,7 +10,7 @@ import org.testcontainers.containers.output.Slf4jLogConsumer;
 
 public abstract class AbstractTest {
 
-    private static final Integer LOCALSTACK_PORT = 4566;
+    private static final Integer LOCALSTACK_PORT = 4572;
     private static final GenericContainer container;
 
     protected static AmazonS3 amazonS3;
@@ -21,15 +21,15 @@ public abstract class AbstractTest {
          * with generic container we would have something like this:
          */
 
-        container = new GenericContainer("localstack/localstack:latest")
-                .withExposedPorts(LOCALSTACK_PORT)
-                .withEnv("SERVICES", "s3")
-                .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(AbstractTest.class)));
+//        container = new GenericContainer("localstack/localstack:latest")
+//                .withExposedPorts(LOCALSTACK_PORT)
+//                .withEnv("SERVICES", "s3")
+//                .withLogConsumer(new Slf4jLogConsumer(LoggerFactory.getLogger(AbstractTest.class)));
 
 
-//        container = new LocalStackContainer()
-//                .withServices(LocalStackContainer.Service.S3)
-//                .withExposedPorts(LOCALSTACK_PORT);
+        container = new LocalStackContainer()
+                .withServices(LocalStackContainer.Service.S3)
+                .withExposedPorts(LOCALSTACK_PORT);
 
         container.start();
 
